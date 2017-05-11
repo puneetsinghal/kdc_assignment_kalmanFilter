@@ -17,7 +17,7 @@ for filesIndex = 0:9
     n_x = 13;
     
     % number of markers
-    global n_m
+    global n_mvar
     n_m = 8;
     
     % number of samples
@@ -126,6 +126,7 @@ for filesIndex = 0:9
         state_estimate = state_estimate + kalman_gain*marker_error;
         variance_estimate = (eye(n_x) - kalman_gain*C)*variance_estimate;
         
+        markers_position(index,visible_markers) = linearize_C(state_estimate, visible_markers);
         % Relinearize
         %  [ quaternion, state_estimate ] = relinearize( quaternion, state_estimate );
         
@@ -140,8 +141,6 @@ for filesIndex = 0:9
         % Process update.
         [ state_estimate, A ] = do_dynamics( state_estimate );
         variance_estimate = A*variance_estimate*A' + Q;
-        
-        markers_position(index,visible_markers) = linearize_C(state_estimate, visible_markers);
         
     end
     
@@ -164,9 +163,10 @@ for filesIndex = 0:9
     %% Plotting
     truth_1 = load('problem_2_0.dat');
     truth_2 = load('problem_2_1.dat');
-    clf
-%     close all
+%     clf
+    close all
     time = linspace(0,n_t*T,n_t);
+    figure;
     
     subplot(2,2,1);
     hold on
@@ -221,4 +221,6 @@ for filesIndex = 0:9
     xlabel('time (s)')
     ylabel('m/s')
     legend('COM Velocity-X','COM Velocity-Y','COM Velocity-Z','Location','best');
+    
+    saveas(gcf, fullfile(pwd, 'results', strcat('p3a0', int2str(filesIndex), '.png')));
 end

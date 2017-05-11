@@ -159,7 +159,8 @@ for filesIndex = 0:9
     %% Plotting
     truth_1 = load('problem_2_0.dat');
     truth_2 = load('problem_2_1.dat');
-    clf
+    close all
+    figure;
     time = linspace(0,n_t*T,n_t);
     
     subplot(2,2,1);
@@ -215,5 +216,6 @@ for filesIndex = 0:9
     xlabel('time (s)')
     ylabel('m/s')
     legend('COM Velocity-X','COM Velocity-Y','COM Velocity-Z','Location','best');
-    shg
+    
+    saveas(gcf, fullfile(pwd, 'results', strcat('p2a0', int2str(filesIndex), '.png')));
 end

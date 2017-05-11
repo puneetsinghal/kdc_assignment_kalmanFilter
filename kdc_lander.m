@@ -2,9 +2,8 @@ clear;
 clc;
 %% Add paths to folders
 addpath(genpath(fullfile(pwd, '../useful/')));
-addpath(fullfile(pwd, '../lander'));
 addpath(fullfile(pwd,'./helpingFunctions/'));
-addpath(genpath(fullfile(pwd,'part3')));
+% addpath(genpath(fullfile(pwd,'part3')));
 %% Part a Quaternion calculations using rotation matrix
 % rotation matrix is defined by edges of the artifact as coordinate axes
 % and edge vectors are calulated using marker locations
